@@ -1,14 +1,14 @@
 import axios from 'axios';
 
-import { ICollection, IDatabase, IRecord } from '@chunchun-db/shared/dist';
+import { ICollection, IDatabase, IRecord } from '@chunchun-db/shared';
 
-import { Colection } from './Collection';
+import { Collection } from './Collection';
 
 export class Database implements IDatabase {
     constructor(private url: string, public name: string) {}
 
     getDbUrl() {
-        return `${this.url}/db/${this.name}`;
+        return `${this.url}/db/${this.name}/collections`;
     }
 
     async rename(newName: string): Promise<void> {
@@ -22,7 +22,7 @@ export class Database implements IDatabase {
             params: { name },
         });
 
-        return new Colection<T>(this.getDbUrl(), name);
+        return new Collection<T>(this.getDbUrl(), name);
     }
 
     async getCollection<T extends IRecord>(
@@ -32,6 +32,16 @@ export class Database implements IDatabase {
             params: { name },
         });
 
-        return new Colection<T>(this.getDbUrl(), name);
+        return new Collection<T>(this.getDbUrl(), name);
+    }
+
+    async getAllCollections(): Promise<ICollection<IRecord>[]> {
+        const collections = (await axios
+            .put(`${this.url}/db/${this.name}/collections/getAll`)
+            .then((res) => res.data)) as { name: string }[];
+
+        return collections.map(
+            ({ name }) => new Collection<IRecord>(this.getDbUrl(), name)
+        );
     }
 }

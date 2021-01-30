@@ -13,13 +13,13 @@
     "license": "ISC",
     "repository": {
         "type": "git",
-        "url": "https://github.com/chunchunmaru34/chunchun-db_client"
+        "url": "https://github.com/chunchun-db/chunchun-db_client"
     },
     "devDependencies": {
         "typescript": "^4.1.3"
     },
     "dependencies": {
         "axios": "^0.21.1",
-        "@chunchun-db/shared": "github:chunchunmaru34/chunchun-db_shared#1.0.1"
+        "@chunchun-db/shared": "github:chunchun-db/chunchun-db_shared#1.1.0"
     }
 }
