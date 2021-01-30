@@ -28,7 +28,7 @@ export class Database implements IDatabase {
     async getCollection<T extends IRecord>(
         name: string
     ): Promise<ICollection<T>> {
-        axios.put(`${this.url}/db/${this.name}/collections/get`, {
+        axios.get(`${this.url}/db/${this.name}/collections/get`, {
             params: { name },
         });
 
@@ -37,7 +37,7 @@ export class Database implements IDatabase {
 
     async getAllCollections(): Promise<ICollection<IRecord>[]> {
         const collections = (await axios
-            .put(`${this.url}/db/${this.name}/collections/getAll`)
+            .get(`${this.url}/db/${this.name}/collections/getAll`)
             .then((res) => res.data)) as { name: string }[];
 
         return collections.map(
