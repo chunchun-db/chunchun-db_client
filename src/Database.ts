@@ -18,9 +18,7 @@ export class Database implements IDatabase {
     async createCollection<T extends IRecord>(
         name: string
     ): Promise<ICollection<T>> {
-        axios.put(`${this.url}/db/${this.name}/collections/create`, {
-            params: { name },
-        });
+        axios.put(`${this.url}/db/${this.name}/collections/create`, { name });
 
         return new Collection<T>(this.getDbUrl(), name);
     }
@@ -28,7 +26,7 @@ export class Database implements IDatabase {
     async getCollection<T extends IRecord>(
         name: string
     ): Promise<ICollection<T>> {
-        axios.get(`${this.url}/db/${this.name}/collections/get`, {
+        axios.get(`${this.url}/db/${this.name}/collections/checkIfExist`, {
             params: { name },
         });
 

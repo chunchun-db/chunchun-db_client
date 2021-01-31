@@ -32,7 +32,7 @@ export class DbClient implements IDbClient {
     }
 
     async createDatabase(name: string): Promise<IDatabase> {
-        await axios.get(`${this.url}/db/create`, { params: { name } });
+        await axios.put(`${this.url}/db/create`, { name });
 
         return new Database(this.url, name);
     }
