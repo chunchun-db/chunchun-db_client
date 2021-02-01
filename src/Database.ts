@@ -26,12 +26,11 @@ export class Database implements IDatabase {
     async getCollection<T extends IRecord>(
         name: string
     ): Promise<ICollection<T>> {
-        const isExist = await axios.get(
-            `${this.url}/db/${this.name}/collections/checkIfExist`,
-            {
+        const isExist = await axios
+            .get(`${this.url}/db/${this.name}/collections/checkIfExist`, {
                 params: { name },
-            }
-        );
+            })
+            .then((res) => res.data);
 
         if (!isExist) {
             throw Error(`collection with name "${name} does not exist`);
