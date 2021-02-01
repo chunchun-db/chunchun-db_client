@@ -26,9 +26,16 @@ export class Database implements IDatabase {
     async getCollection<T extends IRecord>(
         name: string
     ): Promise<ICollection<T>> {
-        axios.get(`${this.url}/db/${this.name}/collections/checkIfExist`, {
-            params: { name },
-        });
+        const isExist = axios.get(
+            `${this.url}/db/${this.name}/collections/checkIfExist`,
+            {
+                params: { name },
+            }
+        );
+
+        if (!isExist) {
+            throw Error(`collection with name "${name} does not exist`);
+        }
 
         return new Collection<T>(this.getDbUrl(), name);
     }

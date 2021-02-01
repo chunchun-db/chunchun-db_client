@@ -18,7 +18,13 @@ export class DbClient implements IDbClient {
     private constructor(private url: string) {}
 
     async getDatabase(name: string): Promise<IDatabase> {
-        await axios.get(`${this.url}/db/checkIfExist`, { params: { name } });
+        const isExist = await axios.get(`${this.url}/db/checkIfExist`, {
+            params: { name },
+        });
+
+        if (!isExist) {
+            throw new Error(`database with name "${name} does not exist`);
+        }
 
         return new Database(this.url, name);
     }
