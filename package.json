@@ -1,6 +1,6 @@
 {
     "name": "@chunchun-db/client",
-    "version": "1.1.2",
+    "version": "1.2.0",
     "description": "",
     "main": "dist/index.js",
     "scripts": {
@@ -20,6 +20,6 @@
     },
     "dependencies": {
         "axios": "^0.21.1",
-        "@chunchun-db/shared": "github:chunchun-db/chunchun-db_shared#1.1.0"
+        "@chunchun-db/shared": "github:chunchun-db/chunchun-db_shared#1.2.1"
     }
 }
