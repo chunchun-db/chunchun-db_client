@@ -22,4 +22,8 @@ export class Collection<T extends IRecord> implements ICollection<T> {
     update(item: T): Promise<void> {
         return axios.put(`${this.url}/${this.name}/update`, item);
     }
+
+    async removeAll() {
+        await axios.delete(`${this.url}/${this.name}/removeAll`);
+    }
 }
